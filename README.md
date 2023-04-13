@@ -1,9 +1,11 @@
 # icav
 
-## Python installation
+## Download from github
 
-Follow the below instructions
+1. Clone this repository in to the system
+2. Install the neccesary pyhton packages using requirements.txt
 ```
-brew install python
+pip install requirements.txt
+```
 
-```
+
