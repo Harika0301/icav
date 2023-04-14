@@ -1,0 +1,101 @@
+{% block content %}
+
+<div class="container">
+    <div class="row pull-right">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <div class="row">
+        <h2 class="results pull-left"> Books List</h2>
+       
+    </div>
+    
+    <a href="#EnterRowModal" class="btn pull-left"data-toggle="modal"></a>
+    <div id="#EnterRowModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            
+            <h2>Enter no of rows</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" method="POST" action="">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label pull-left" for="rows">Rows</label>
+                        <div class="controls">
+                            <input type="number" name="row">
+                        </div>
+                    </div>
+                </fieldset>
+                <div id="form-buttons-container" class="form-actions">
+                    <div class="controls">
+                        <input type="hidden" name="flag_value" value='1'>
+                        <input type="submit" class="btn btn-primary btn-medium" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="essential persist">title</th>
+                    <th class="essential persist">author</th>
+                    <th class="essential persist">authors</th>
+                    <th class="essential persist">isbn13</th>
+                    <th class="essential persist">isbn10</th>
+                    <th class="essential persist">price</th>
+                    <th class="essential persist">publisher</th>
+                    <th class="essential persist">pubyear</th>
+                    <th class="essential persist">subjects</th>
+                    <th class="essential persist">pages</th>
+                    <th class="essential persist">dimensions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in items %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                       <td>{{ book.author }}</td>
+                       <td>{{ book.authors }}</td>
+                       <td>{{ book.isbn13 }}</td>
+                       <td>{{ book.isbn10 }}</td>
+                       <td>{{ book.price }}</td>
+                       <td>{{ book.publisher }}</td>
+                       <td>{{ book.pubyear }}</td>
+                       <td>{{ book.subjects }}</td>
+                       <td>{{ book.pages }}</td>
+                       <td>{{ book.dimensions }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if items.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ items.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ items.number }} of {{ items.paginator.num_pages }}.
+            </span>
+    
+            {% if items.has_next %}
+                <a href="?page={{ items.next_page_number }}">next</a>
+                <a href="?page={{ items.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+{% endblock %}
